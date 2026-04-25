@@ -96,7 +96,8 @@ async function main() {
   const round = getCurrentRound();
 
   // Prüfen ob diese Woche eine Versandwoche ist
-  if (!isSurveyWeek()) {
+  const forceSend = process.env.FORCE_SEND === 'true';
+  if (!forceSend && !isSurveyWeek()) {
     console.log(`Woche ${Math.floor((Date.now() - START_DATE) / MS_PER_WEEK)} — keine Versandwoche. Übersprungen.`);
     return;
   }
